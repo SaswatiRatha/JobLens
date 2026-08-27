@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
+import Navbar from "../../../components/Navbar";
 import { useState } from "react";
 
 const Register = () => {
@@ -27,6 +28,7 @@ const Register = () => {
 
   return (
     <main>
+      <Navbar />
       <div className="form-container">
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>

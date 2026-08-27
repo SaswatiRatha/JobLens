@@ -1,0 +1,110 @@
+@use "../styles/theme" as theme;
+
+.site-nav {
+  width: min(100%, 70rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 auto 5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(173, 222, 213, 0.14);
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: theme.$text-primary;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.35rem;
+    text-decoration: none;
+
+    .brand-mark {
+      display: grid;
+      width: 2rem;
+      height: 2rem;
+      place-items: center;
+      border-radius: theme.$radius;
+      background: theme.$accent;
+      color: #102021;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+
+    .user-name {
+      color: theme.$text-secondary;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.logout-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid #466462;
+  border-radius: theme.$radius;
+  background: transparent;
+  color: theme.$text-label;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
+  span {
+    color: theme.$accent;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: theme.$accent;
+    background: rgba(113, 211, 194, 0.08);
+    color: theme.$accent-light;
+  }
+
+  &:focus-visible {
+    outline: 2px solid theme.$accent;
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+}
+
+@media (max-width: 700px) {
+  .site-nav {
+    margin-bottom: 3.5rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .site-nav {
+    align-items: flex-start;
+
+    .nav-actions {
+      align-items: flex-end;
+      flex-direction: column;
+      gap: 0.65rem;
+
+      .user-name {
+        max-width: 9rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}

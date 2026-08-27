@@ -1,0 +1,136 @@
+import { useState } from "react";
+import useAuth from "../auth/hooks/useAuth";
+import Navbar from "../../components/Navbar";
+import "./style.scss";
+
+const Home = () => {
+  const { user, handleLogout, loading } = useAuth();
+  const [jobDescription, setJobDescription] = useState("");
+  const [selfDescription, setSelfDescription] = useState("");
+  const [resume, setResume] = useState(null);
+  const [error, setError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleResumeChange = (event) => {
+    const selectedFile = event.target.files?.[0];
+
+    setSubmitted(false);
+    setError("");
+
+    if (selectedFile && selectedFile.type !== "application/pdf") {
+      setResume(null);
+      setError("Please upload your resume as a PDF file.");
+      event.target.value = "";
+      return;
+    }
+
+    setResume(selectedFile ?? null);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSubmitted(false);
+
+    if (!jobDescription.trim() || !selfDescription.trim() || !resume) {
+      setError(
+        "Complete both descriptions and upload your resume to continue.",
+      );
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("jobDescription", jobDescription.trim());
+    formData.append("selfDescription", selfDescription.trim());
+    formData.append("resume", resume);
+
+    // The FormData payload is ready for the interview-report API.
+    console.log(Object.fromEntries(formData.entries()));
+    setError("");
+    setSubmitted(true);
+  };
+
+  return (
+    <main className="interview-page">
+      <Navbar
+        user={user}
+        loading={loading}
+        onLogout={handleLogout}
+        showLogout
+      />
+
+      <section className="interview-shell">
+        <header className="interview-header">
+          <p className="eyebrow">JobLens / Interview preparation</p>
+          <h1>Build your interview report</h1>
+          <p className="intro">
+            Share the role, your experience, and a resume to create a focused
+            preparation plan.
+          </p>
+        </header>
+
+        <form className="interview-form" onSubmit={handleSubmit}>
+          <div className="form-grid">
+            <label className="field field-wide" htmlFor="job-description">
+              <span>Job description</span>
+              <textarea
+                id="job-description"
+                value={jobDescription}
+                onChange={(event) => {
+                  setJobDescription(event.target.value);
+                  setSubmitted(false);
+                }}
+                placeholder="Paste the role, responsibilities, and requirements"
+                rows="9"
+              />
+            </label>
+
+            <label className="field field-wide" htmlFor="self-description">
+              <span>About you</span>
+              <textarea
+                id="self-description"
+                value={selfDescription}
+                onChange={(event) => {
+                  setSelfDescription(event.target.value);
+                  setSubmitted(false);
+                }}
+                placeholder="Describe your experience, strengths, and goals"
+                rows="9"
+              />
+            </label>
+
+            <label className="upload-field" htmlFor="resume">
+              <span className="upload-label">Resume</span>
+              <span className="upload-box">
+                <strong>{resume ? resume.name : "Choose a PDF resume"}</strong>
+                <small>
+                  {resume
+                    ? `${(resume.size / 1024).toFixed(0)} KB`
+                    : "PDF only"}
+                </small>
+              </span>
+              <input
+                id="resume"
+                type="file"
+                accept="application/pdf,.pdf"
+                onChange={handleResumeChange}
+              />
+            </label>
+          </div>
+
+          {error && <p className="form-message error-message">{error}</p>}
+          {submitted && (
+            <p className="form-message success-message">
+              Your interview details are ready to analyze.
+            </p>
+          )}
+
+          <button className="button primary-button submit-button" type="submit">
+            Generate report
+          </button>
+        </form>
+      </section>
+    </main>
+  );
+};
+
+export default Home;

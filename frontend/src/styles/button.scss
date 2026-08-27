@@ -1,3 +1,5 @@
+@use "theme";
+
 .button {
   border: none;
   outline: none;
@@ -5,14 +7,14 @@
   padding-block: 0.75rem;
   border-radius: 1rem;
   cursor: pointer;
-  color: whitesmoke;
+  color: theme.$text-primary;
   font-weight: bold;
   font-size: medium;
 
   transition: all 0.3s ease-in-out;
 
   &.primary-button {
-    background-color: #1573c0;
+    background-color: theme.$accent;
   }
 
   &:active {

@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import "../auth.form.scss";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
+import Navbar from "../../../components/Navbar";
 
 const Login = () => {
   const { loading, handleLogin } = useAuth();
@@ -26,6 +27,7 @@ const Login = () => {
 
   return (
     <main>
+      <Navbar />
       <div className="form-container">
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>

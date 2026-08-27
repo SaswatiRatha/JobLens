@@ -1,0 +1,174 @@
+@use "../../styles/theme" as theme;
+
+.interview-page {
+  min-height: 100vh;
+  padding: 4rem 1.5rem;
+  @include theme.page-background;
+}
+
+.interview-shell {
+  width: min(100%, 70rem);
+  margin: 0 auto;
+}
+
+.interview-header {
+  max-width: 43rem;
+  margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  color: theme.$accent;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.interview-header h1 {
+  color: theme.$text-primary;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+  font-weight: 500;
+  line-height: 0.98;
+}
+
+.intro {
+  max-width: 34rem;
+  margin-top: 1.25rem;
+  color: theme.$text-secondary;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.interview-form {
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  border: 1px solid theme.$border-soft;
+  border-radius: 0.5rem;
+  background: theme.$surface;
+  box-shadow: theme.$shadow;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.field,
+.upload-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.field {
+  span {
+    color: theme.$text-label;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+}
+
+.upload-label {
+  color: theme.$text-label;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.field-wide {
+  grid-column: span 1;
+}
+
+.field textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 10rem;
+  padding: 1rem;
+  border: 1px solid theme.$border;
+  border-radius: theme.$radius;
+  outline: none;
+  background: theme.$input-background;
+  color: theme.$text-primary;
+  font: inherit;
+  line-height: 1.5;
+  &::placeholder {
+    color: theme.$text-muted;
+  }
+  &:focus {
+    @include theme.focus-ring;
+  }
+}
+
+.upload-field {
+  grid-column: 1 / -1;
+}
+
+.upload-field input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.upload-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px dashed #5c8881;
+  border-radius: theme.$radius;
+  background: rgba(16, 26, 28, 0.7);
+  color: theme.$text-primary;
+  cursor: pointer;
+}
+
+.upload-box small {
+  color: #8ea4a1;
+}
+
+.upload-field:focus-within .upload-box,
+.upload-box:hover {
+  border-color: theme.$accent;
+  background: rgba(30, 55, 55, 0.7);
+}
+
+.form-message {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  color: #ff9c8d;
+}
+
+.success-message {
+  color: theme.$accent;
+}
+
+.submit-button {
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 700px) {
+  .interview-page {
+    padding: 2.5rem 1rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-wide,
+  .upload-field {
+    grid-column: auto;
+  }
+
+  .upload-box {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

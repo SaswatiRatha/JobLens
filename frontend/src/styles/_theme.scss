@@ -1,0 +1,31 @@
+$page-start: #121a1d;
+$page-mid: #192529;
+$page-end: #101719;
+$surface: rgba(22, 34, 37, 0.82);
+$surface-strong: rgba(22, 34, 37, 0.88);
+$input-background: #101a1c;
+$text-primary: #f4f1e9;
+$text-secondary: #a9b8b7;
+$text-muted: #718280;
+$text-label: #dfeae7;
+$accent: #71d3c2;
+$accent-light: #a1e5d8;
+$border: #3a5050;
+$border-soft: rgba(173, 222, 213, 0.16);
+$shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.22);
+$radius: 0.3rem;
+
+@mixin page-background($position: 85% 8%) {
+  background:
+    radial-gradient(
+      circle at $position,
+      rgba(34, 161, 148, 0.16),
+      transparent 30rem
+    ),
+    linear-gradient(135deg, $page-start 0%, $page-mid 55%, $page-end 100%);
+}
+
+@mixin focus-ring {
+  border-color: $accent;
+  box-shadow: 0 0 0 3px rgba(113, 211, 194, 0.12);
+}

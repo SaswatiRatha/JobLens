@@ -1,8 +1,9 @@
-@use "./styles/button.scss";
+@use "./styles/theme";
+@use "./styles/button";
 
 * {
-  margin: 0%;
-  padding: 0%;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -10,8 +11,8 @@ html,
 body,
 #root {
   width: 100%;
-  background-color: #1a1a1a;
-  color: whitesmoke;
+  background-color: theme.$page-start;
+  color: theme.$text-primary;
   font-family:
     system-ui,
     -apple-system,
