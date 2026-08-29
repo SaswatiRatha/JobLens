@@ -136,6 +136,7 @@ const generateInterviewReport = async ({
     return response.parsed_output;
   } catch (err) {
     console.error("Error generating interview report:", err);
+    throw err;
   }
 };
 

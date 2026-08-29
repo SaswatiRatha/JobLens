@@ -46,12 +46,7 @@ export const logout = async () => {
 };
 
 export const getProfile = async () => {
-  try {
-    const response = await api.get("/api/auth/profile");
+  const response = await api.get("/api/auth/profile");
 
-    return response;
-  } catch (err) {
-    console.error(`Something went wrong: ${err.message}`);
-    throw err;
-  }
+  return response;
 };

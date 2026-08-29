@@ -1,13 +1,34 @@
 import { useState } from "react";
-import useAuth from "../auth/hooks/useAuth";
-import Navbar from "../../components/Navbar";
-import "./style.scss";
+import useAuth from "../../auth/hooks/useAuth";
+import Navbar from "../../../components/Navbar";
+import { useNavigate } from "react-router";
+import "../style.scss";
+import { useInterview } from "../hooks/useInterview";
 
 const Home = () => {
-  const { user, handleLogout, loading } = useAuth();
+  // const { loading, generateReport } = useInterview();
+  // const { user, handleLogout  } = useAuth()
+  // const [jobDescription, setJobDescription] = useState("");
+  // const [selfDescription, setSelfDescription] = useState("");
+  // const resumeInputRef = useRef();
+  // const navigate = useNavigate();
+
+  // const handleSubmit = async () => {
+  //   const resumeFile = resumeInputRef.current.files[0];
+  //   const data = await generateReport({
+  //     jobDescription,
+  //     selfDescription,
+  //     resumeFile,
+  //   });
+  //   navigate(`/interview/${data._id}`);
+  // };
+
+  const { loading, generateReport } = useInterview();
+  const { user, handleLogout } = useAuth();
+  const navigate = useNavigate();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
-  const [resume, setResume] = useState(null);
+  const [resumeFile, setResumeFile] = useState(null);
   const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -18,35 +39,40 @@ const Home = () => {
     setError("");
 
     if (selectedFile && selectedFile.type !== "application/pdf") {
-      setResume(null);
+      setResumeFile(null);
       setError("Please upload your resume as a PDF file.");
       event.target.value = "";
       return;
     }
 
-    setResume(selectedFile ?? null);
+    setResumeFile(selectedFile ?? null);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(false);
 
-    if (!jobDescription.trim() || !selfDescription.trim() || !resume) {
+    if (!jobDescription.trim() || (!selfDescription.trim() && !resumeFile)) {
       setError(
-        "Complete both descriptions and upload your resume to continue.",
+        "Add the job description and either your self description or resume to continue.",
       );
       return;
     }
 
-    const formData = new FormData();
-    formData.append("jobDescription", jobDescription.trim());
-    formData.append("selfDescription", selfDescription.trim());
-    formData.append("resume", resume);
-
-    // The FormData payload is ready for the interview-report API.
-    console.log(Object.fromEntries(formData.entries()));
-    setError("");
-    setSubmitted(true);
+    try {
+      setError("");
+      const response = await generateReport({
+        jobDescription,
+        selfDescription,
+        resumeFile,
+      });
+      setSubmitted(true);
+      navigate("/interview", { state: { report: response?.data ?? response } });
+    } catch (err) {
+      setError(
+        err?.response?.data?.message || "Unable to generate the report.",
+      );
+    }
   };
 
   return (
@@ -77,7 +103,6 @@ const Home = () => {
                 value={jobDescription}
                 onChange={(event) => {
                   setJobDescription(event.target.value);
-                  setSubmitted(false);
                 }}
                 placeholder="Paste the role, responsibilities, and requirements"
                 rows="9"
@@ -91,7 +116,6 @@ const Home = () => {
                 value={selfDescription}
                 onChange={(event) => {
                   setSelfDescription(event.target.value);
-                  setSubmitted(false);
                 }}
                 placeholder="Describe your experience, strengths, and goals"
                 rows="9"
@@ -101,10 +125,12 @@ const Home = () => {
             <label className="upload-field" htmlFor="resume">
               <span className="upload-label">Resume</span>
               <span className="upload-box">
-                <strong>{resume ? resume.name : "Choose a PDF resume"}</strong>
+                <strong>
+                  {resumeFile ? resumeFile.name : "Choose a PDF resume"}
+                </strong>
                 <small>
-                  {resume
-                    ? `${(resume.size / 1024).toFixed(0)} KB`
+                  {resumeFile
+                    ? `${(resumeFile.size / 1024).toFixed(0)} KB`
                     : "PDF only"}
                 </small>
               </span>

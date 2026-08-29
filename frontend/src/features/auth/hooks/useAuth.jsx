@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router";
-import { AuthContext } from "../auth.context";
-import { getProfile, login, logout, register } from "../services/auth.api.js";
-import { useEffect } from "react";
+import { AuthContext } from "../auth.context.js";
+import { login, logout, register } from "../services/auth.api.js";
 
 const useAuth = () => {
   const context = useContext(AuthContext);
@@ -47,21 +46,6 @@ const useAuth = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    const getAndSetUser = async () => {
-      try {
-        const response = await getProfile();
-        setUser(response.data.data);
-      } catch {
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getAndSetUser();
-  }, []);
 
   return { user, loading, handleLogin, handleRegister, handleLogout };
 };

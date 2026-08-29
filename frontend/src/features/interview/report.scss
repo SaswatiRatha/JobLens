@@ -1,0 +1,295 @@
+@use "../../styles/theme" as theme;
+
+.report-page {
+  min-height: 100vh;
+  padding: 4rem 1.5rem;
+  @include theme.page-background;
+}
+
+.report-shell {
+  width: min(100%, 70rem);
+  margin: 0 auto;
+}
+
+.report-layout {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.report-sidebar {
+  position: sticky;
+  top: 2rem;
+  align-self: stretch;
+  height: calc(100vh - 4rem);
+  min-height: 20rem;
+  padding: 1.25rem;
+  border: 1px solid theme.$border-soft;
+  border-radius: 0.75rem;
+  background: rgba(22, 34, 37, 0.72);
+}
+
+.report-nav {
+  display: grid;
+  gap: 0.75rem;
+
+  a {
+    padding: 0.7rem 0.8rem;
+    border-radius: 0.5rem;
+    color: theme.$text-label;
+    text-decoration: none;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: rgba(113, 211, 194, 0.08);
+      color: theme.$accent-light;
+      transform: translateX(2px);
+    }
+  }
+}
+
+.report-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  h1 {
+    color: theme.$text-primary;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.5rem, 6vw, 4.8rem);
+    font-weight: 500;
+    line-height: 0.98;
+  }
+
+  p:not(.eyebrow) {
+    margin-top: 1rem;
+    color: theme.$text-secondary;
+    line-height: 1.6;
+  }
+}
+
+.score-panel {
+  min-width: 10rem;
+  padding: 1.25rem;
+  border-left: 2px solid theme.$accent;
+  background: rgba(22, 34, 37, 0.62);
+
+  span,
+  small {
+    display: block;
+    color: theme.$text-secondary;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  strong {
+    display: block;
+    margin: 0.25rem 0;
+    color: theme.$accent;
+    font-size: 2.5rem;
+    font-weight: 500;
+  }
+}
+
+.report-sections {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.report-section {
+  scroll-margin-top: 2rem;
+  padding: clamp(1.25rem, 4vw, 2.25rem);
+  border: 1px solid theme.$border-soft;
+  border-radius: 0.5rem;
+  background: theme.$surface;
+  box-shadow: theme.$shadow;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+
+  .section-number {
+    color: theme.$accent;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    color: theme.$text-primary;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 500;
+  }
+}
+
+.eyebrow {
+  margin-bottom: 0.55rem;
+  color: theme.$accent;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.question-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.question-item {
+  padding: 1.25rem;
+  border: 1px solid #334a49;
+  border-radius: theme.$radius;
+  background: rgba(16, 26, 28, 0.56);
+
+  h3 {
+    color: theme.$text-primary;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  p {
+    margin-top: 0.8rem;
+    color: theme.$text-secondary;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  strong {
+    color: theme.$accent-light;
+    font-weight: 700;
+  }
+
+  .question-intention {
+    color: theme.$text-secondary;
+    font-size: 0.9rem;
+  }
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #334a49;
+  border-left: 3px solid theme.$accent;
+  border-radius: 0.5rem;
+  background: rgba(16, 26, 28, 0.56);
+  color: theme.$text-label;
+}
+
+.severity {
+  padding: 0.25rem 0.45rem;
+  border-radius: 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.severity-low {
+  background: rgba(113, 211, 194, 0.15);
+  color: theme.$accent;
+}
+.severity-medium {
+  background: rgba(240, 190, 100, 0.15);
+  color: #f0be64;
+}
+.severity-high {
+  background: rgba(255, 156, 141, 0.15);
+  color: #ff9c8d;
+}
+
+.plan-list {
+  display: grid;
+  gap: 0;
+}
+
+.plan-day {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #334a49;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .day-label {
+    color: theme.$accent;
+    font-weight: 700;
+  }
+  h3 {
+    color: theme.$text-primary;
+    font-size: 1rem;
+  }
+  p {
+    margin-top: 0.4rem;
+    color: theme.$text-secondary;
+    line-height: 1.5;
+  }
+}
+
+.report-empty {
+  width: min(100%, 38rem);
+  margin: 5rem auto;
+
+  h1 {
+    color: theme.$text-primary;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 3rem;
+    font-weight: 500;
+  }
+  p:not(.eyebrow) {
+    margin: 1rem 0 2rem;
+    color: theme.$text-secondary;
+  }
+}
+
+@media (max-width: 700px) {
+  .report-page {
+    padding: 2.5rem 1rem;
+  }
+
+  .report-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .report-sidebar {
+    position: static;
+  }
+
+  .report-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .question-list,
+  .skill-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 460px) {
+  .plan-day {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}

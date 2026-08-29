@@ -6,7 +6,7 @@ export const userAuth = async (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-      res.status(400).json({
+      return res.status(401).json({
         message: "Invalid token. Please login!",
       });
     }
@@ -14,7 +14,7 @@ export const userAuth = async (req, res, next) => {
     const isTokenBlacklisted = await BlacklistToken.findOne({ token });
 
     if (isTokenBlacklisted) {
-      res.status(400).json({
+      return res.status(401).json({
         message: "Invalid token. Please login!",
       });
     }

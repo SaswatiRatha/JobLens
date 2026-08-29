@@ -37,6 +37,17 @@
     align-items: center;
     gap: 1.25rem;
 
+    .nav-link {
+      color: theme.$text-secondary;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: theme.$accent-light;
+      }
+    }
+
     .user-name {
       color: theme.$text-secondary;
       font-size: 0.9rem;

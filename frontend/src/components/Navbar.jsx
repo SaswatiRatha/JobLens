@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import "./Navbar.scss";
 
 const Navbar = ({ user, loading, onLogout, showLogout = false }) => {
@@ -10,6 +11,9 @@ const Navbar = ({ user, loading, onLogout, showLogout = false }) => {
 
       {showLogout && (
         <div className="nav-actions">
+          <Link className="nav-link" to="/reports">
+            My reports
+          </Link>
           <span className="user-name">{user?.name}</span>
           <button
             className="logout-button"

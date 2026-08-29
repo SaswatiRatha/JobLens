@@ -3,6 +3,7 @@ import "../auth.form.scss";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Navbar from "../../../components/Navbar";
+import AuthIntro from "../components/AuthIntro";
 
 const Login = () => {
   const { loading, handleLogin } = useAuth();
@@ -28,39 +29,42 @@ const Login = () => {
   return (
     <main>
       <Navbar />
-      <div className="form-container">
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-            />
-          </div>
+      <div className="auth-content">
+        <AuthIntro />
+        <div className="form-container">
+          <h1>Login</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+              />
+            </div>
 
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-            />
-          </div>
+            <div className="input-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+              />
+            </div>
 
-          <p>
-            Dont have an account? <Link to={"/register"}>Register here</Link>
-          </p>
+            <p>
+              Dont have an account? <Link to={"/register"}>Register here</Link>
+            </p>
 
-          <button className="button primary-button">Login</button>
-        </form>
+            <button className="button primary-button">Login</button>
+          </form>
+        </div>
       </div>
     </main>
   );
