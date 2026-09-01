@@ -3,6 +3,7 @@ import { InterviewContext } from "../interview.context";
 import {
   deleteInterviewReportById,
   generateInterviewReport,
+  generateResumePdf,
   getAllInterviewReports,
   getInterviewReportById,
 } from "../services/interview.api";
@@ -82,6 +83,22 @@ export const useInterview = () => {
     }
   }, [setLoading, setReports]);
 
+  const getResumePdf = useCallback(
+    async (reportId) => {
+      setLoading(true);
+      try {
+        const response = await generateResumePdf(reportId);
+        return response;
+      } catch (err) {
+        console.error(err.message);
+        throw err;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading],
+  );
+
   return {
     loading,
     report,
@@ -90,5 +107,6 @@ export const useInterview = () => {
     generateReportById,
     deleteReportById,
     getReports,
+    getResumePdf,
   };
 };

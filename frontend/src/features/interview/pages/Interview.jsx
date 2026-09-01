@@ -124,6 +124,9 @@ const Interview = () => {
                     {item.label}
                   </button>
                 ))}
+                <button className="button primary-button">
+                  Generate AI Tailored Resume
+                </button>
               </nav>
             )}
           </aside>

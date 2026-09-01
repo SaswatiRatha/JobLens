@@ -41,3 +41,10 @@ export const deleteInterviewReportById = async (reportId) => {
   const response = await api.delete(`/api/interview/${reportId}`);
   return response.data?.data ?? response.data;
 };
+
+export const generateResumePdf = async (reportId) => {
+  const response = await api.get(`/api/interview/resume/pdf/${reportId}`, {
+    responseType: "blob",
+  });
+  return response.data;
+};

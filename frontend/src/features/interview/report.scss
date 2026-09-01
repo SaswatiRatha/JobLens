@@ -31,7 +31,7 @@
   padding: 1.25rem;
   border: 1px solid theme.$border-soft;
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.82);
+  background: theme.$surface-strong;
   box-shadow: theme.$shadow;
   transition: all 0.25s ease;
 }
@@ -48,12 +48,19 @@
   padding: 0.4rem 0.6rem;
   border: 1px solid theme.$border;
   border-radius: 0.6rem;
-  background: rgba(255, 255, 255, 0.7);
+  background: theme.$surface;
   color: theme.$text-primary;
   font: inherit;
   font-size: 0.72rem;
   font-weight: 700;
   cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background: theme.$surface-strong;
+  }
 }
 
 .report-nav {
@@ -87,6 +94,21 @@
       font-weight: 700;
     }
   }
+
+  .button.primary-button {
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.8rem;
+    width: auto;
+
+    &:hover {
+      background: linear-gradient(
+        135deg,
+        theme.$accent 0%,
+        theme.$accent-light 100%
+      );
+      transform: translateY(-2px);
+    }
+  }
 }
 
 .report-header {
@@ -116,12 +138,9 @@
   padding: 1.25rem 1.35rem;
   border-left: 3px solid theme.$accent;
   border-radius: 1rem;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.94),
-    rgba(219, 234, 254, 0.7)
-  );
+  background: theme.$surface-strong;
   box-shadow: theme.$shadow;
+  transition: all 0.2s ease;
 
   span,
   small {
@@ -155,12 +174,9 @@
   padding: clamp(1.25rem, 4vw, 2.25rem);
   border: 1px solid theme.$border-soft;
   border-radius: 1rem;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.9),
-    rgba(239, 246, 255, 0.82)
-  );
+  background: theme.$surface;
   box-shadow: theme.$shadow;
+  transition: all 0.2s ease;
 }
 
 .section-heading {
@@ -199,13 +215,10 @@
 
 .question-item {
   padding: 1.25rem;
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid theme.$border-soft;
   border-radius: theme.$radius;
-  background: linear-gradient(
-    135deg,
-    rgba(248, 250, 252, 0.96),
-    rgba(219, 234, 254, 0.72)
-  );
+  background: theme.$surface-strong;
+  transition: all 0.2s ease;
 
   h3 {
     color: theme.$text-primary;
@@ -243,15 +256,12 @@
   justify-content: space-between;
   gap: 0.75rem;
   padding: 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.22);
+  border: 1px solid theme.$border-soft;
   border-left: 3px solid theme.$accent;
   border-radius: 0.5rem;
-  background: linear-gradient(
-    135deg,
-    rgba(248, 250, 252, 0.96),
-    rgba(219, 234, 254, 0.7)
-  );
+  background: theme.$surface-strong;
   color: theme.$text-label;
+  transition: all 0.2s ease;
 }
 
 .severity {
@@ -347,7 +357,25 @@
       linear-gradient(135deg, #020817 0%, #0f172a 45%, #111827 100%);
   }
 
-  .report-sidebar,
+  .report-sidebar {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.95),
+      rgba(30, 41, 59, 0.92)
+    );
+    border-color: rgba(148, 163, 184, 0.2);
+  }
+
+  .sidebar-toggle {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(148, 163, 184, 0.2);
+    color: #cbd5e1;
+
+    &:hover {
+      background: rgba(30, 41, 59, 0.95);
+    }
+  }
+
   .report-section,
   .detail-section,
   .skill-section,
@@ -394,6 +422,16 @@
   .plan-day {
     border-bottom-color: rgba(148, 163, 184, 0.18);
   }
+
+  .button.primary-button {
+    box-shadow: 0 0.75rem 1.5rem rgba(37, 99, 235, 0.12);
+
+    &:hover {
+      box-shadow:
+        0 1.5rem 3rem rgba(37, 99, 235, 0.2),
+        0 0 1.5rem rgba(96, 165, 250, 0.25);
+    }
+  }
 }
 
 .app-shell.light {
@@ -408,7 +446,25 @@
       linear-gradient(135deg, #f3f7fb 0%, #edf4f8 45%, #e7eef7 100%);
   }
 
-  .report-sidebar,
+  .report-sidebar {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(239, 246, 255, 0.88)
+    );
+    border-color: rgba(15, 23, 42, 0.08);
+  }
+
+  .sidebar-toggle {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(15, 23, 42, 0.12);
+    color: #0f172a;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.95);
+    }
+  }
+
   .report-section,
   .detail-section,
   .skill-section,
@@ -423,6 +479,16 @@
     );
     border-color: rgba(15, 23, 42, 0.08);
     box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.08);
+  }
+
+  .button.primary-button {
+    box-shadow: 0 0.75rem 1.5rem rgba(37, 99, 235, 0.18);
+
+    &:hover {
+      box-shadow:
+        0 1.5rem 3rem rgba(37, 99, 235, 0.28),
+        0 0 1.5rem rgba(96, 165, 250, 0.3);
+    }
   }
 }
 

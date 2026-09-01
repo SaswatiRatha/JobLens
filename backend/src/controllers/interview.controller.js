@@ -1,4 +1,6 @@
-import generateInterviewReport from "../services/ai.service.js";
+import generateInterviewReport, {
+  generateResumePdf,
+} from "../services/ai.service.js";
 import InterviewReportModel from "../models/interviewReport.model.js";
 import { PDFParse } from "pdf-parse";
 
@@ -104,6 +106,38 @@ export const deleteInterviewReportByIdController = async (req, res) => {
     console.error("Delete interview report failed:", err);
     return res.status(500).json({
       message: "Unable to delete interview report.",
+    });
+  }
+};
+
+export const generateResumePdfController = async (req, res) => {
+  try {
+    const { reportId } = req.params;
+    const report = await InterviewReportModel.findById(reportId);
+
+    if (!report) {
+      return res.status(404).json({
+        message: "Interview report not found.",
+      });
+    }
+
+    const { resume, jobDescription, selfDescription } = report;
+
+    const pdfBuffer = await generateResumePdf({
+      resume,
+      jobDescription,
+      selfDescription,
+    });
+
+    res.set({
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename=resume_${reportId}.pdf`,
+    });
+    res.send(pdfBuffer);
+  } catch (err) {
+    console.error("Generate resume PDF failed:", err);
+    return res.status(500).json({
+      message: "Unable to generate resume PDF.",
     });
   }
 };

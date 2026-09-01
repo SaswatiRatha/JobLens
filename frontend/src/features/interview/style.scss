@@ -45,9 +45,10 @@
   padding: clamp(1.25rem, 4vw, 2.5rem);
   border: 1px solid theme.$border-soft;
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.76);
+  background: theme.$surface-strong;
   box-shadow: theme.$shadow;
   backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
 }
 
 .form-grid {
@@ -128,7 +129,7 @@
 }
 
 .upload-box small {
-  color: #8ea4a1;
+  color: theme.$text-muted;
 }
 
 .upload-field:focus-within .upload-box,
@@ -142,7 +143,7 @@
 }
 
 .error-message {
-  color: #ff9c8d;
+  color: theme.$text-error;
 }
 
 .success-message {
@@ -151,6 +152,90 @@
 
 .submit-button {
   margin-top: 1.75rem;
+}
+
+.app-shell.dark {
+  .interview-page {
+    @include theme.page-background;
+    background:
+      radial-gradient(
+        circle at 85% 15%,
+        rgba(59, 130, 246, 0.2),
+        transparent 28rem
+      ),
+      linear-gradient(135deg, #020817 0%, #0f172a 45%, #111827 100%);
+  }
+
+  .interview-form {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.92),
+      rgba(30, 41, 59, 0.9)
+    );
+    border-color: rgba(148, 163, 184, 0.2);
+    box-shadow: 0 1rem 2rem rgba(2, 6, 23, 0.28);
+  }
+
+  .interview-header h1 {
+    color: #f8fafc;
+  }
+
+  .intro {
+    color: #cbd5e1;
+  }
+
+  .field span,
+  .upload-label {
+    color: #f8fafc;
+  }
+
+  .field textarea {
+    background: rgba(15, 23, 42, 0.8);
+    color: #e2e8f0;
+    border-color: rgba(148, 163, 184, 0.2);
+
+    &::placeholder {
+      color: #64748b;
+    }
+
+    &:focus {
+      border-color: theme.$accent;
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
+    }
+  }
+
+  .upload-box {
+    background: rgba(15, 23, 42, 0.8);
+    border-color: rgba(148, 163, 184, 0.2);
+    color: #e2e8f0;
+  }
+
+  .upload-box small {
+    color: #64748b;
+  }
+}
+
+.app-shell.light {
+  .interview-page {
+    @include theme.page-background;
+    background:
+      radial-gradient(
+        circle at 85% 15%,
+        rgba(59, 130, 246, 0.12),
+        transparent 28rem
+      ),
+      linear-gradient(135deg, #f3f7fb 0%, #edf4f8 45%, #e7eef7 100%);
+  }
+
+  .interview-form {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(239, 246, 255, 0.8)
+    );
+    border-color: rgba(15, 23, 42, 0.08);
+    box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.08);
+  }
 }
 
 @media (max-width: 700px) {
