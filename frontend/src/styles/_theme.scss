@@ -1,25 +1,90 @@
-$page-start: #121a1d;
-$page-mid: #192529;
-$page-end: #101719;
-$surface: rgba(22, 34, 37, 0.82);
-$surface-strong: rgba(22, 34, 37, 0.88);
-$input-background: #101a1c;
-$text-primary: #f4f1e9;
-$text-secondary: #a9b8b7;
-$text-muted: #718280;
-$text-label: #dfeae7;
-$accent: #71d3c2;
-$accent-light: #a1e5d8;
-$border: #3a5050;
-$border-soft: rgba(173, 222, 213, 0.16);
-$shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.22);
-$radius: 0.3rem;
+:root {
+  --page-start: #020817;
+  --page-mid: #0f172a;
+  --page-end: #111827;
+  --surface: rgba(15, 23, 42, 0.88);
+  --surface-strong: rgba(15, 23, 42, 0.94);
+  --input-background: rgba(15, 23, 42, 0.9);
+  --text-primary: #e2e8f0;
+  --text-secondary: #cbd5e1;
+  --text-error: #f03030;
+  --text-muted: #94a3b8;
+  --text-label: #f8fafc;
+  --accent: #60a5fa;
+  --accent-light: #93c5fd;
+  --accent-soft: rgba(96, 165, 250, 0.12);
+  --border: rgba(148, 163, 184, 0.22);
+  --border-soft: rgba(148, 163, 184, 0.16);
+  --shadow: 0 1rem 2rem rgba(2, 6, 23, 0.34);
+  --radius: 0.75rem;
+}
 
-@mixin page-background($position: 85% 8%) {
+.app-shell.dark {
+  --page-start: #020817;
+  --page-mid: #0f172a;
+  --page-end: #111827;
+  --surface: rgba(15, 23, 42, 0.88);
+  --surface-strong: rgba(15, 23, 42, 0.94);
+  --input-background: rgba(15, 23, 42, 0.9);
+  --text-primary: #e2e8f0;
+  --text-secondary: #cbd5e1;
+  --text-error: #f87171;
+  --text-muted: #94a3b8;
+  --text-label: #f8fafc;
+  --accent: #60a5fa;
+  --accent-light: #93c5fd;
+  --accent-soft: rgba(96, 165, 250, 0.12);
+  --border: rgba(148, 163, 184, 0.22);
+  --border-soft: rgba(148, 163, 184, 0.16);
+  --shadow: 0 1rem 2rem rgba(2, 6, 23, 0.34);
+  --radius: 0.75rem;
+}
+
+.app-shell.light {
+  --page-start: #f3f7fb;
+  --page-mid: #edf4f8;
+  --page-end: #e7eef7;
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-strong: rgba(255, 255, 255, 0.96);
+  --input-background: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-error: #dc2626;
+  --text-muted: #64748b;
+  --text-label: #1e293b;
+  --accent: #1d4ed8;
+  --accent-light: #60a5fa;
+  --accent-soft: #dbeafe;
+  --border: #dfe7f0;
+  --border-soft: rgba(15, 23, 42, 0.08);
+  --shadow: 0 1rem 2rem rgba(15, 23, 42, 0.08);
+  --radius: 0.75rem;
+}
+
+$page-start: var(--page-start);
+$page-mid: var(--page-mid);
+$page-end: var(--page-end);
+$surface: var(--surface);
+$surface-strong: var(--surface-strong);
+$input-background: var(--input-background);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$text-error: var(--text-error);
+$text-muted: var(--text-muted);
+$text-label: var(--text-label);
+$accent: var(--accent);
+$accent-light: var(--accent-light);
+$accent-soft: var(--accent-soft);
+$border: var(--border);
+$border-soft: var(--border-soft);
+$shadow: var(--shadow);
+$radius: var(--radius);
+
+@mixin page-background($position: 88% 8%) {
   background:
     radial-gradient(
       circle at $position,
-      rgba(34, 161, 148, 0.16),
+      rgba(59, 130, 246, 0.2),
       transparent 30rem
     ),
     linear-gradient(135deg, $page-start 0%, $page-mid 55%, $page-end 100%);
@@ -27,5 +92,5 @@ $radius: 0.3rem;
 
 @mixin focus-ring {
   border-color: $accent;
-  box-shadow: 0 0 0 3px rgba(113, 211, 194, 0.12);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
 }

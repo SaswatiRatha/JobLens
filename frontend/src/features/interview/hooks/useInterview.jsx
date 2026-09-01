@@ -1,6 +1,7 @@
 import { useCallback, useContext } from "react";
 import { InterviewContext } from "../interview.context";
 import {
+  deleteInterviewReportById,
   generateInterviewReport,
   getAllInterviewReports,
   getInterviewReportById,
@@ -49,6 +50,24 @@ export const useInterview = () => {
     [setLoading, setReport],
   );
 
+  const deleteReportById = useCallback(
+    async (reportId) => {
+      setLoading(true);
+      try {
+        await deleteInterviewReportById(reportId);
+
+        setReports((currentReports) =>
+          currentReports.filter((report) => report._id !== reportId),
+        );
+      } catch (err) {
+        console.error(err.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading, setReports],
+  );
+
   const getReports = useCallback(async () => {
     setLoading(true);
     try {
@@ -69,6 +88,7 @@ export const useInterview = () => {
     reports,
     generateReport,
     generateReportById,
+    deleteReportById,
     getReports,
   };
 };

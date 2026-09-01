@@ -36,3 +36,8 @@ export const getAllInterviewReports = async () => {
   const response = await api.get("/api/interview");
   return response.data?.data ?? response.data;
 };
+
+export const deleteInterviewReportById = async (reportId) => {
+  const response = await api.delete(`/api/interview/${reportId}`);
+  return response.data?.data ?? response.data;
+};

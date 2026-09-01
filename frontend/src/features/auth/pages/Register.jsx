@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import Navbar from "../../../components/Navbar";
 import AuthIntro from "../components/AuthIntro";
 import { useState } from "react";
+import ShowPassword from "../components/ShowPassword";
 
 const Register = () => {
   const { loading, handleRegister } = useAuth();
@@ -10,6 +11,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,15 +61,20 @@ const Register = () => {
               />
             </div>
 
-            <div className="input-group">
+            <div className="input-group password-field">
               <label htmlFor="password">Password</label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
+              />
+              <ShowPassword
+                password={password}
+                showPassword={showPassword}
+                setShowPassword={setShowPassword}
               />
             </div>
 

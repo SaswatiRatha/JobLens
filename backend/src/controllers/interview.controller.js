@@ -2,7 +2,7 @@ import generateInterviewReport from "../services/ai.service.js";
 import InterviewReportModel from "../models/interviewReport.model.js";
 import { PDFParse } from "pdf-parse";
 
-const generateInterviewReportController = async (req, res) => {
+export const generateInterviewReportController = async (req, res) => {
   try {
     const resumeFile = req.file;
     let resumeContent = "";
@@ -89,4 +89,21 @@ export const getInterviewReportByIdController = async (req, res) => {
   }
 };
 
-export default generateInterviewReportController;
+export const deleteInterviewReportByIdController = async (req, res) => {
+  try {
+    const report = await InterviewReportModel.findOneAndDelete({
+      _id: req.params.reportId,
+      user: req.user.id,
+    });
+
+    res.status(200).json({
+      message: "Interview report deleted successfully",
+      data: report,
+    });
+  } catch (err) {
+    console.error("Delete interview report failed:", err);
+    return res.status(500).json({
+      message: "Unable to delete interview report.",
+    });
+  }
+};

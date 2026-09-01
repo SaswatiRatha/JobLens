@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { userAuth } from "../middleware/auth.middleware.js";
-import generateInterviewReportController, {
+import {
+  generateInterviewReportController,
+  deleteInterviewReportByIdController,
   getInterviewReportByIdController,
   getUserInterviewReportsController,
 } from "../controllers/interview.controller.js";
@@ -16,6 +18,12 @@ interviewRouter.post(
   userAuth,
   upload.single("resume"),
   generateInterviewReportController,
+);
+
+interviewRouter.delete(
+  "/:reportId",
+  userAuth,
+  deleteInterviewReportByIdController,
 );
 
 export default interviewRouter;

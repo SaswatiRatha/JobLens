@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 import Navbar from "../../../components/Navbar";
 import useAuth from "../../auth/hooks/useAuth";
@@ -7,20 +8,37 @@ const Interview = () => {
   const { state } = useLocation();
   const { user, handleLogout, loading } = useAuth();
   const report = state?.report;
+  const sectionRefs = useRef({});
+  const [activeSection, setActiveSection] = useState("technical-questions");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 960 : false,
+  );
 
-  const handleSidebarClick = (event, sectionId) => {
-    event.preventDefault();
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 960) {
+        setSidebarCollapsed(true);
+      }
+    };
 
-    const section = document.getElementById(sectionId);
-    if (!section) return;
+    window.addEventListener("resize", handleResize);
 
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.history.pushState(null, "", `#${sectionId}`);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleSidebarClick = (sectionId) => {
+    setActiveSection(sectionId);
+
+    const targetSection = sectionRefs.current[sectionId];
+    if (!targetSection) return;
+
+    targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const navItems = [
     { id: "technical-questions", label: "Technical questions" },
     { id: "behavioural-questions", label: "Behavioural questions" },
+    { id: "skill-gap", label: "Skill Gaps" },
     { id: "preparation-plan", label: "Preparation plan" },
   ];
 
@@ -72,23 +90,54 @@ const Interview = () => {
         </header>
 
         <div className="report-layout">
-          <aside className="report-sidebar">
-            <p className="eyebrow">Sections</p>
-            <nav className="report-nav" aria-label="Report sections">
-              {navItems.map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  onClick={(event) => handleSidebarClick(event, item.id)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
+          <aside
+            className={`report-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}
+          >
+            <div className="sidebar-header">
+              <p className="eyebrow">Sections</p>
+              <button
+                type="button"
+                className="sidebar-toggle"
+                onClick={() => setSidebarCollapsed((prev) => !prev)}
+                aria-label={
+                  sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
+                }
+              >
+                {sidebarCollapsed ? "Show" : "Hide"}
+              </button>
+            </div>
+            {!sidebarCollapsed && (
+              <nav className="report-nav" aria-label="Report sections">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={activeSection === item.id ? "active" : ""}
+                    onClick={() => {
+                      handleSidebarClick(item.id);
+
+                      if (window.innerWidth < 960) {
+                        setSidebarCollapsed(true);
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+            )}
           </aside>
 
           <div className="report-content">
-            <section className="report-section" id="technical-questions">
+            <section
+              className="report-section detail-section"
+              id="technical-questions"
+              ref={(node) => {
+                if (node) {
+                  sectionRefs.current["technical-questions"] = node;
+                }
+              }}
+            >
               <div className="section-heading">
                 <span className="section-number">01</span>
                 <div>
@@ -99,7 +148,15 @@ const Interview = () => {
               <QuestionList questions={report.technicalQuestions} />
             </section>
 
-            <section className="report-section" id="behavioural-questions">
+            <section
+              className="report-section detail-section"
+              id="behavioural-questions"
+              ref={(node) => {
+                if (node) {
+                  sectionRefs.current["behavioural-questions"] = node;
+                }
+              }}
+            >
               <div className="section-heading">
                 <span className="section-number">02</span>
                 <div>
@@ -110,7 +167,15 @@ const Interview = () => {
               <QuestionList questions={report.behavioralQuestions} />
             </section>
 
-            <section className="report-section">
+            <section
+              className="report-section skill-section"
+              id="skill-gap"
+              ref={(node) => {
+                if (node) {
+                  sectionRefs.current["skill-gap"] = node;
+                }
+              }}
+            >
               <div className="section-heading">
                 <span className="section-number">03</span>
                 <div>
@@ -133,6 +198,11 @@ const Interview = () => {
             <section
               className="report-section plan-section"
               id="preparation-plan"
+              ref={(node) => {
+                if (node) {
+                  sectionRefs.current["preparation-plan"] = node;
+                }
+              }}
             >
               <div className="section-heading">
                 <span className="section-number">04</span>

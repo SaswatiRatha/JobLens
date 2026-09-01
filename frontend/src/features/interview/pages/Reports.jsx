@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router";
+import LoadingState from "../../../components/LoadingState";
 import Navbar from "../../../components/Navbar";
 import useAuth from "../../auth/hooks/useAuth";
 import { useInterview } from "../hooks/useInterview";
 
 const Reports = () => {
   const { user, handleLogout, loading: authLoading } = useAuth();
-  const { loading, reports, getReports } = useInterview();
+  const { loading, reports, getReports, deleteReportById } = useInterview();
   const hasFetchedRef = useRef(false);
 
   useEffect(() => {
@@ -35,7 +36,11 @@ const Reports = () => {
         </header>
 
         {loading ? (
-          <p>Loading reports...</p>
+          <LoadingState
+            title="Loading your reports"
+            description="Fetching the latest saved interview insights for your account."
+            variant="list"
+          />
         ) : !hasReports ? (
           <div className="report-empty">
             <p>No reports yet.</p>
@@ -74,14 +79,21 @@ const Reports = () => {
                     </div>
                   </div>
                 </div>
-
-                <Link
-                  className="button secondary-button"
-                  to="/interview"
-                  state={{ report }}
-                >
-                  View report
-                </Link>
+                <div className="action-items">
+                  <Link
+                    className="button secondary-button"
+                    to="/interview"
+                    state={{ report }}
+                  >
+                    View report
+                  </Link>
+                  <button
+                    className="button error-button"
+                    onClick={() => deleteReportById(report._id)}
+                  >
+                    Delete Report
+                  </button>
+                </div>
               </article>
             ))}
           </div>

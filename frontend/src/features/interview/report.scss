@@ -7,7 +7,7 @@
 }
 
 .report-shell {
-  width: min(100%, 70rem);
+  width: min(100%, 76rem);
   margin: 0 auto;
 }
 
@@ -18,6 +18,10 @@
   align-items: start;
 }
 
+.report-content {
+  min-width: 0;
+}
+
 .report-sidebar {
   position: sticky;
   top: 2rem;
@@ -26,19 +30,46 @@
   min-height: 20rem;
   padding: 1.25rem;
   border: 1px solid theme.$border-soft;
-  border-radius: 0.75rem;
-  background: rgba(22, 34, 37, 0.72);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: theme.$shadow;
+  transition: all 0.25s ease;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.sidebar-toggle {
+  display: none;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid theme.$border;
+  border-radius: 0.6rem;
+  background: rgba(255, 255, 255, 0.7);
+  color: theme.$text-primary;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .report-nav {
   display: grid;
   gap: 0.75rem;
+  margin-top: 1rem;
 
-  a {
+  button {
+    width: 100%;
     padding: 0.7rem 0.8rem;
+    border: 0;
     border-radius: 0.5rem;
+    background: transparent;
     color: theme.$text-label;
-    text-decoration: none;
+    text-align: left;
+    cursor: pointer;
     transition:
       background 0.2s ease,
       color 0.2s ease,
@@ -48,6 +79,12 @@
       background: rgba(113, 211, 194, 0.08);
       color: theme.$accent-light;
       transform: translateX(2px);
+    }
+
+    &.active {
+      background: rgba(113, 211, 194, 0.12);
+      color: theme.$accent-light;
+      font-weight: 700;
     }
   }
 }
@@ -76,9 +113,15 @@
 
 .score-panel {
   min-width: 10rem;
-  padding: 1.25rem;
-  border-left: 2px solid theme.$accent;
-  background: rgba(22, 34, 37, 0.62);
+  padding: 1.25rem 1.35rem;
+  border-left: 3px solid theme.$accent;
+  border-radius: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.94),
+    rgba(219, 234, 254, 0.7)
+  );
+  box-shadow: theme.$shadow;
 
   span,
   small {
@@ -93,7 +136,7 @@
     margin: 0.25rem 0;
     color: theme.$accent;
     font-size: 2.5rem;
-    font-weight: 500;
+    font-weight: 700;
   }
 }
 
@@ -102,12 +145,21 @@
   gap: 1.25rem;
 }
 
-.report-section {
+.report-section,
+.detail-section,
+.skill-section,
+.plan-section {
+  display: grid;
+  gap: 1.25rem;
   scroll-margin-top: 2rem;
   padding: clamp(1.25rem, 4vw, 2.25rem);
   border: 1px solid theme.$border-soft;
-  border-radius: 0.5rem;
-  background: theme.$surface;
+  border-radius: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(239, 246, 255, 0.82)
+  );
   box-shadow: theme.$shadow;
 }
 
@@ -142,15 +194,18 @@
 
 .question-list {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
 .question-item {
   padding: 1.25rem;
-  border: 1px solid #334a49;
+  border: 1px solid rgba(148, 163, 184, 0.28);
   border-radius: theme.$radius;
-  background: rgba(16, 26, 28, 0.56);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 252, 0.96),
+    rgba(219, 234, 254, 0.72)
+  );
 
   h3 {
     color: theme.$text-primary;
@@ -166,7 +221,7 @@
   }
 
   strong {
-    color: theme.$accent-light;
+    color: theme.$accent;
     font-weight: 700;
   }
 
@@ -188,10 +243,14 @@
   justify-content: space-between;
   gap: 0.75rem;
   padding: 1rem;
-  border: 1px solid #334a49;
+  border: 1px solid rgba(148, 163, 184, 0.22);
   border-left: 3px solid theme.$accent;
   border-radius: 0.5rem;
-  background: rgba(16, 26, 28, 0.56);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 252, 0.96),
+    rgba(219, 234, 254, 0.7)
+  );
   color: theme.$text-label;
 }
 
@@ -201,24 +260,34 @@
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-}
 
-.severity-low {
-  background: rgba(113, 211, 194, 0.15);
-  color: theme.$accent;
-}
-.severity-medium {
-  background: rgba(240, 190, 100, 0.15);
-  color: #f0be64;
-}
-.severity-high {
-  background: rgba(255, 156, 141, 0.15);
-  color: #ff9c8d;
+  &-low {
+    background: rgba(113, 211, 194, 0.15);
+    color: theme.$accent;
+  }
+
+  &-medium {
+    background: rgba(240, 190, 100, 0.15);
+    color: #f0be64;
+  }
+
+  &-high {
+    background: rgba(255, 156, 141, 0.15);
+    color: #ff9c8d;
+  }
 }
 
 .plan-list {
   display: grid;
-  gap: 0;
+}
+
+.action-items {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
 }
 
 .plan-day {
@@ -226,7 +295,7 @@
   grid-template-columns: 6rem 1fr;
   gap: 1.5rem;
   padding: 1.25rem 0;
-  border-bottom: 1px solid #334a49;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 
   &:last-child {
     border-bottom: 0;
@@ -236,10 +305,12 @@
     color: theme.$accent;
     font-weight: 700;
   }
+
   h3 {
     color: theme.$text-primary;
     font-size: 1rem;
   }
+
   p {
     margin-top: 0.4rem;
     color: theme.$text-secondary;
@@ -257,9 +328,136 @@
     font-size: 3rem;
     font-weight: 500;
   }
+
   p:not(.eyebrow) {
     margin: 1rem 0 2rem;
     color: theme.$text-secondary;
+  }
+}
+
+.app-shell.dark {
+  .report-page {
+    @include theme.page-background;
+    background:
+      radial-gradient(
+        circle at 85% 15%,
+        rgba(59, 130, 246, 0.2),
+        transparent 28rem
+      ),
+      linear-gradient(135deg, #020817 0%, #0f172a 45%, #111827 100%);
+  }
+
+  .report-sidebar,
+  .report-section,
+  .detail-section,
+  .skill-section,
+  .plan-section,
+  .score-panel,
+  .question-item,
+  .skill-item {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.92),
+      rgba(30, 41, 59, 0.9)
+    );
+    border-color: rgba(148, 163, 184, 0.2);
+    box-shadow: 0 1rem 2rem rgba(2, 6, 23, 0.28);
+  }
+
+  .report-header h1,
+  .section-heading h2,
+  .question-item h3,
+  .plan-day h3,
+  .report-empty h1,
+  .report-nav button,
+  .skill-item {
+    color: #f8fafc;
+  }
+
+  .report-header p:not(.eyebrow),
+  .question-item p,
+  .question-item .question-intention,
+  .plan-day p,
+  .report-empty p:not(.eyebrow),
+  .score-panel span,
+  .score-panel small,
+  .report-nav button,
+  .eyebrow {
+    color: #cbd5e1;
+  }
+
+  .report-nav button:hover {
+    background: rgba(59, 130, 246, 0.12);
+    color: #dbeafe;
+  }
+
+  .plan-day {
+    border-bottom-color: rgba(148, 163, 184, 0.18);
+  }
+}
+
+.app-shell.light {
+  .report-page {
+    @include theme.page-background;
+    background:
+      radial-gradient(
+        circle at 85% 15%,
+        rgba(59, 130, 246, 0.12),
+        transparent 28rem
+      ),
+      linear-gradient(135deg, #f3f7fb 0%, #edf4f8 45%, #e7eef7 100%);
+  }
+
+  .report-sidebar,
+  .report-section,
+  .detail-section,
+  .skill-section,
+  .plan-section,
+  .score-panel,
+  .question-item,
+  .skill-item {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(239, 246, 255, 0.8)
+    );
+    border-color: rgba(15, 23, 42, 0.08);
+    box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.08);
+  }
+}
+
+@media (max-width: 960px) {
+  .report-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .report-sidebar {
+    position: sticky;
+    top: 1rem;
+    height: auto;
+    min-height: auto;
+    z-index: 20;
+  }
+
+  .report-sidebar.collapsed {
+    padding: 0.8rem 1rem;
+  }
+
+  .sidebar-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .report-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .score-panel {
+    width: 100%;
+    max-width: 14rem;
   }
 }
 
@@ -268,28 +466,39 @@
     padding: 2.5rem 1rem;
   }
 
-  .report-layout {
-    grid-template-columns: 1fr;
+  .report-shell {
+    width: 100%;
   }
 
   .report-sidebar {
     position: static;
   }
 
-  .report-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
   .question-list,
   .skill-grid {
     grid-template-columns: 1fr;
   }
+
+  .report-section,
+  .detail-section,
+  .skill-section,
+  .plan-section {
+    padding: 1.1rem;
+  }
 }
 
-@media (max-width: 460px) {
+@media (max-width: 520px) {
+  .section-heading {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
   .plan-day {
     grid-template-columns: 1fr;
     gap: 0.5rem;
+  }
+
+  .score-panel strong {
+    font-size: 2rem;
   }
 }
