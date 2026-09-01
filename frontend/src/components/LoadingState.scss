@@ -6,8 +6,9 @@
   padding: clamp(1.5rem, 4vw, 2.5rem);
   border: 1px solid theme.$border-soft;
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.76);
+  background: theme.$surface-strong;
   box-shadow: theme.$shadow;
+  transition: all 0.2s ease;
 }
 
 .loading-state__header {
@@ -116,13 +117,10 @@
   gap: 0.8rem;
   min-height: 10rem;
   padding: 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid theme.$border-soft;
   border-radius: 0.9rem;
-  background: linear-gradient(
-    135deg,
-    rgba(248, 250, 252, 0.96),
-    rgba(217, 234, 254, 0.7)
-  );
+  background: theme.$surface;
+  transition: all 0.2s ease;
 }
 
 .loading-skeleton__card.wide {
@@ -186,6 +184,82 @@
   }
   100% {
     background-position: -200% 0;
+  }
+}
+
+.app-shell.dark {
+  .loading-state {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.92),
+      rgba(30, 41, 59, 0.9)
+    );
+    border-color: rgba(148, 163, 184, 0.2);
+    box-shadow: 0 1rem 2rem rgba(2, 6, 23, 0.28);
+  }
+
+  .loading-state__header h2 {
+    color: theme.$text-primary;
+  }
+
+  .loading-state__description {
+    color: theme.$text-secondary;
+  }
+
+  .loading-skeleton__card {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.92),
+      rgba(30, 41, 59, 0.9)
+    );
+    border-color: rgba(148, 163, 184, 0.2);
+  }
+
+  .skeleton-line {
+    background: linear-gradient(
+      90deg,
+      rgba(148, 163, 184, 0.08) 25%,
+      rgba(148, 163, 184, 0.15) 50%,
+      rgba(148, 163, 184, 0.08) 75%
+    );
+  }
+}
+
+.app-shell.light {
+  .loading-state {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(239, 246, 255, 0.8)
+    );
+    border-color: rgba(15, 23, 42, 0.08);
+    box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.08);
+  }
+
+  .loading-state__header h2 {
+    color: theme.$text-primary;
+  }
+
+  .loading-state__description {
+    color: theme.$text-secondary;
+  }
+
+  .loading-skeleton__card {
+    background: linear-gradient(
+      135deg,
+      rgba(248, 250, 252, 0.96),
+      rgba(219, 234, 254, 0.72)
+    );
+    border-color: rgba(15, 23, 42, 0.08);
+  }
+
+  .skeleton-line {
+    background: linear-gradient(
+      90deg,
+      rgba(148, 163, 184, 0.12) 25%,
+      rgba(148, 163, 184, 0.22) 50%,
+      rgba(148, 163, 184, 0.12) 75%
+    );
   }
 }
 

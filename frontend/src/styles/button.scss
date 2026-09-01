@@ -38,14 +38,22 @@
 
   &.secondary-button {
     border: 1px solid theme.$border;
-    background: #ffffff;
+    background: theme.$surface;
     color: theme.$text-primary;
+
+    &:hover {
+      background: theme.$surface-strong;
+    }
   }
 
   &.error-button {
     border: 1px solid theme.$border;
-    background: #ffffff;
+    background: theme.$surface;
     color: theme.$text-error;
+
+    &:hover {
+      background: theme.$surface-strong;
+    }
   }
 
   &:hover {
@@ -54,5 +62,45 @@
 
   &:active {
     transform: translateY(0);
+  }
+}
+
+.app-shell.dark {
+  .button {
+    &.secondary-button,
+    &.error-button {
+      background: theme.$surface-strong;
+      border-color: rgba(148, 163, 184, 0.2);
+      box-shadow: 0 0.5rem 1rem rgba(2, 6, 23, 0.2);
+    }
+
+    &.secondary-button:hover,
+    &.error-button:hover {
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.95),
+        rgba(30, 41, 59, 0.92)
+      );
+    }
+  }
+}
+
+.app-shell.light {
+  .button {
+    &.secondary-button,
+    &.error-button {
+      background: theme.$surface;
+      border-color: rgba(15, 23, 42, 0.08);
+      box-shadow: 0 0.5rem 1rem rgba(15, 23, 42, 0.08);
+    }
+
+    &.secondary-button:hover,
+    &.error-button:hover {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.94),
+        rgba(239, 246, 255, 0.88)
+      );
+    }
   }
 }

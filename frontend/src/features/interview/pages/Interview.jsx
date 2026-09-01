@@ -1,18 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
+import LoadingState from "../../../components/LoadingState";
 import useAuth from "../../auth/hooks/useAuth";
 import "../report.scss";
+import { useInterview } from "../hooks/useInterview";
 
 const Interview = () => {
   const { state } = useLocation();
   const { user, handleLogout, loading } = useAuth();
+  const { getResumePdf } = useInterview();
   const report = state?.report;
   const sectionRefs = useRef({});
   const [activeSection, setActiveSection] = useState("technical-questions");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() =>
     typeof window !== "undefined" ? window.innerWidth < 960 : false,
   );
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const [pdfError, setPdfError] = useState("");
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,6 +39,44 @@ const Interview = () => {
     if (!targetSection) return;
 
     targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleGenerateResumePdf = async () => {
+    if (!report?._id) return;
+
+    try {
+      setPdfLoading(true);
+      setPdfError("");
+
+      const pdfBlob = await getResumePdf(report._id);
+      const pdfUrl = URL.createObjectURL(
+        new Blob([pdfBlob], { type: "application/pdf" }),
+      );
+
+      const previewLink = document.createElement("a");
+      previewLink.href = pdfUrl;
+      previewLink.target = "_blank";
+      previewLink.rel = "noopener noreferrer";
+      previewLink.style.display = "none";
+      document.body.appendChild(previewLink);
+      previewLink.click();
+      document.body.removeChild(previewLink);
+
+      const downloadLink = document.createElement("a");
+      downloadLink.href = pdfUrl;
+      downloadLink.download = `resume_${report._id}.pdf`;
+      downloadLink.style.display = "none";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+
+      setTimeout(() => URL.revokeObjectURL(pdfUrl), 1500);
+    } catch (error) {
+      console.error("Resume PDF generation failed:", error);
+      setPdfError("Unable to generate the PDF preview. Please try again.");
+    } finally {
+      setPdfLoading(false);
+    }
   };
 
   const navItems = [
@@ -59,6 +103,7 @@ const Interview = () => {
             Create a report
           </Link>
         </section>
+        <Footer />
       </main>
     );
   }
@@ -73,6 +118,18 @@ const Interview = () => {
       />
 
       <section className="report-shell">
+        {pdfLoading && (
+          <div className="resume-pdf-loader">
+            <LoadingState
+              title="Generating your resume PDF"
+              description="We are creating a polished, tailored resume preview and download for you."
+              variant="report"
+            />
+          </div>
+        )}
+
+        {pdfError && <p className="form-message error-message">{pdfError}</p>}
+
         <header className="report-header">
           <div>
             <p className="eyebrow">JobLens / Interview report</p>
@@ -124,8 +181,14 @@ const Interview = () => {
                     {item.label}
                   </button>
                 ))}
-                <button className="button primary-button">
-                  Generate AI Tailored Resume
+                <button
+                  className="button primary-button"
+                  onClick={handleGenerateResumePdf}
+                  disabled={pdfLoading}
+                >
+                  {pdfLoading
+                    ? "Preparing PDF..."
+                    : "Generate AI Tailored Resume"}
                 </button>
               </nav>
             )}
@@ -229,6 +292,7 @@ const Interview = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 };

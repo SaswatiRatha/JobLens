@@ -5,6 +5,8 @@ import ProtectedRoute from "./features/auth/components/ProtectedRoute";
 import Home from "./features/interview/pages/Home";
 import Interview from "./features/interview/pages/Interview";
 import Reports from "./features/interview/pages/Reports";
+import PrivacyPolicy from "./features/legal/pages/PrivacyPolicy";
+import Terms from "./features/legal/pages/Terms";
 
 export const router = createBrowserRouter([
   {
@@ -31,5 +33,13 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicy />,
+  },
+  {
+    path: "/terms",
+    element: <Terms />,
   },
 ]);

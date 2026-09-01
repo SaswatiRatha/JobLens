@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import LoadingState from "../../../components/LoadingState";
 import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
 import useAuth from "../../auth/hooks/useAuth";
 import { useInterview } from "../hooks/useInterview";
 
@@ -99,6 +100,7 @@ const Reports = () => {
           </div>
         )}
       </section>
+      <Footer />
     </main>
   );
 };

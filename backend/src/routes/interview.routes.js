@@ -12,6 +12,11 @@ import upload from "../middleware/file.middleware.js";
 const interviewRouter = Router();
 
 interviewRouter.get("/", userAuth, getUserInterviewReportsController);
+interviewRouter.get(
+  "/resume/pdf/:reportId",
+  userAuth,
+  generateResumePdfController,
+);
 interviewRouter.get("/:reportId", userAuth, getInterviewReportByIdController);
 
 interviewRouter.post(

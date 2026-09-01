@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useAuth from "../../auth/hooks/useAuth";
 import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
 import { useNavigate } from "react-router";
 import LoadingState from "../../../components/LoadingState";
 import "../style.scss";
@@ -169,6 +170,7 @@ const Home = () => {
           </>
         )}
       </section>
+      <Footer />
     </main>
   );
 };

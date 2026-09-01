@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useTheme } from "../features/theme/useTheme.js";
+import logo from "../assets/logo.png";
 import "./Navbar.scss";
 
 const Navbar = ({ user, loading, onLogout, showLogout = false }) => {
@@ -8,7 +9,7 @@ const Navbar = ({ user, loading, onLogout, showLogout = false }) => {
   return (
     <nav className="site-nav" aria-label="Main navigation">
       <a className="brand" href="/" aria-label="JobLens home">
-        <span className="brand-mark">J</span>
+        <img src={logo} alt="JobLens logo" className="brand-mark" />
         <span>JobLens</span>
       </a>
 

@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
 import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
 import AuthIntro from "../components/AuthIntro";
 import { useState } from "react";
 import ShowPassword from "../components/ShowPassword";
@@ -86,6 +87,7 @@ const Register = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </main>
   );
 };

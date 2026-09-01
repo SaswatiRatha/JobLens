@@ -1,0 +1,106 @@
+@use "../styles/theme" as theme;
+
+.site-footer {
+  width: min(100%, 72rem);
+  margin: 4rem auto 0;
+  padding: 2rem 0 1.5rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  color: theme.$text-secondary;
+
+  .footer-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .footer-brand {
+    max-width: 28rem;
+
+    p {
+      margin-top: 0.9rem;
+      line-height: 1.6;
+      color: theme.$text-secondary;
+    }
+  }
+
+  .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: theme.$text-primary;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .footer-logo-mark {
+    width: 1.9rem;
+    height: 1.9rem;
+    object-fit: contain;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+
+    h3 {
+      margin-bottom: 0.75rem;
+      color: theme.$text-primary;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    a {
+      color: theme.$text-secondary;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: theme.$accent;
+      }
+    }
+  }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+    font-size: 0.82rem;
+    color: theme.$text-muted;
+  }
+
+  .footer-status {
+    color: theme.$text-secondary;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-footer {
+    .footer-inner {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
